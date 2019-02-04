@@ -4,84 +4,11 @@
       <b-col cols="12" class="create-btn-row">
         <div>
           <b-btn
-          v-b-modal.modalPrevent
+          v-b-modal.modalEdit
           v-b-modal.modal-center
           class="create-btn mt-2 px-2">
             Create New Project
           </b-btn>
-
-          <b-modal id="modalPrevent"
-             ref="modal"
-             title="Enter New Project Details"
-             @ok="handleOk"
-             @shown="clearName">
-            <form @submit.stop.prevent="handleSubmit">
-              <p>Client Name</p>
-              <b-form-input
-                class="mb-3"
-                type="text"
-                v-model="form_data.client_name">
-              </b-form-input>
-
-              <p>Company</p>
-              <b-form-input
-                class="mb-3"
-                type="text"
-                v-model="form_data.company">
-              </b-form-input>
-
-              <p>Project Name</p>
-              <b-form-input
-                class="mb-3"
-                type="text"
-                v-model="form_data.project_name">
-              </b-form-input>
-
-              <p>Date Published (Mon. YYYY)</p>
-              <b-form-input
-                class="mb-3"
-                type="text"
-                v-model="form_data.published">
-              </b-form-input>
-
-              <p>Runtime/Length (Ex. 3:45)</p>
-              <b-form-input
-                class="mb-3"
-                type="text"
-                v-model="form_data.length">
-              </b-form-input>
-
-              <p>Vimeo ID# (Ex. 222111333)</p>
-              <b-form-input
-                class="mb-3"
-                type="number"
-                v-model="form_data.vimeo_id">
-              </b-form-input>
-
-              <p>Project Description</p>
-              <b-form-textarea
-                class="mb-3"
-                type="textarea"
-                v-model="form_data.description"
-                :rows="3"
-                :max-rows="6">
-              </b-form-textarea>
-
-              <p>Select a category</p>
-              <b-form-select
-                :options="options"
-                class="mb-3"
-                v-model="form_data.c2">
-              </b-form-select>
-
-              <p>Select a category</p>
-              <b-form-select
-                :options="options"
-                class="mb-3"
-                v-model="form_data.c3">
-              </b-form-select>
-            </form>
-          </b-modal>
         </div>
       </b-col>
     </b-row>
@@ -94,57 +21,63 @@
     <div>
       <b-modal id="modalEdit"
          ref="modal"
-         title="Edit Existing Project Details"
-         @ok="handleEdit"
-         @shown="clearName">
+         :title="form_data.id ? 'Edit Existing Project Details' : 'Enter New Project Details'"
+         @ok="handleSubmit"
+         @hidden="clearName">
         <form @submit.stop.prevent="handleEdit">
+          <b-form-input
+            class="mb-3 project-id"
+            type="text"
+            disabled
+            v-model="form_data.id">
+          </b-form-input>
           <p>Client Name</p>
           <b-form-input
             class="mb-3"
             type="text"
-            v-model="edit_form_data.client_name">
+            v-model="form_data.client_name">
           </b-form-input>
 
           <p>Company</p>
           <b-form-input
             class="mb-3"
             type="text"
-            v-model="edit_form_data.company">
+            v-model="form_data.company">
           </b-form-input>
 
           <p>Project Name</p>
           <b-form-input
             class="mb-3"
             type="text"
-            v-model="edit_form_data.project_name">
+            v-model="form_data.project_name">
           </b-form-input>
 
           <p>Date Published (Mon. YYYY)</p>
           <b-form-input
             class="mb-3"
             type="text"
-            v-model="edit_form_data.published">
+            v-model="form_data.published">
           </b-form-input>
 
           <p>Runtime/Length (Ex. 3:45)</p>
           <b-form-input
             class="mb-3"
             type="text"
-            v-model="edit_form_data.length">
+            v-model="form_data.length">
           </b-form-input>
 
           <p>Vimeo ID# (Ex. 222111333)</p>
           <b-form-input
             class="mb-3"
             type="number"
-            v-model="edit_form_data.vimeo_id">
+            v-model="form_data.vimeo_id">
           </b-form-input>
 
           <p>Project Description</p>
           <b-form-textarea
             class="mb-3"
             type="textarea"
-            v-model="edit_form_data.description"
+            v-model="form_data.description"
             :rows="3"
             :max-rows="6">
           </b-form-textarea>
@@ -153,14 +86,14 @@
           <b-form-select
             :options="options"
             class="mb-3"
-            v-model="edit_form_data.c2">
+            v-model="form_data.c2">
           </b-form-select>
 
           <p>Select a category</p>
           <b-form-select
             :options="options"
             class="mb-3"
-            v-model="edit_form_data.c3">
+            v-model="form_data.c3">
           </b-form-select>
         </form>
       </b-modal>
@@ -213,18 +146,7 @@ export default {
             fields: project_fields,
             options: project_options,
             form_data: {
-                client_name:"",
-                company: "",
-                project_name:"",
-                date_published: "",
-                length:"",
-                vimeo_id:"",
-                description:"",
-                c2:null,
-                c3:null
-            },
-            edit_form_data: {
-                id:"",
+                id: "",
                 client_name:"",
                 company: "",
                 project_name:"",
@@ -242,13 +164,14 @@ export default {
             'editProject', 'createProject', 'deleteProject'
         ]),
         loadEdit(id) {
-            this.edit_form_data = this.projects[id]
+            // this.edit_form_data = this.projects[id]
+            this.form_data = this.projects[id];
         },
         delProject(id) {
             this.deleteProject(id);
         },
         clearName() {
-            this.formData = {
+            this.form_data = {
                 client_name: "",
                 company: "",
                 project_name: "",
@@ -260,19 +183,15 @@ export default {
                 c3: "",
             }
         },
-        handleEdit() {
-            this.editProject(this.edit_form_data);
-        },
-        handleOk(e) {
-            e.preventDefault();
-            this.handleSubmit();
-        },
         handleSubmit() {
             console.log("HANDLE SUBMIT", this.$refs);
-            this.createProject(this.form_data);
+            if(this.form_data.id) {
+              this.editProject(this.form_data);
+            } else {
+              this.createProject(this.form_data);
+            }
             this.clearName();
             this.$refs.modal.hide();
-
         }
     },
     computed: {
@@ -368,6 +287,8 @@ export default {
   margin-bottom: 30px;
 }
 
-
+.project-id {
+  display: none
+}
 </style>
 

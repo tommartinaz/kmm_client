@@ -10,11 +10,13 @@ export default {
     name: "App",
     methods: {
         ...mapActions([
-            'fetchProjects'
+            'fetchProjects',
+            'fetchContacts'
         ]),
     },
     created() {
         this.fetchProjects();
+        this.fetchContacts();
     }
 }
 </script>

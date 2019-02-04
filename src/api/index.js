@@ -17,7 +17,21 @@ export default {
     deleteProject(id) {
         console.log("DELETE", id);
         return axios.delete(`${ROOT_URL}/delete/${id}`);
-    }
+    },
     
     //CONTACTS
+    fetchContacts() {
+        return axios.get(`${ROOT_URL}/contacts`);
+    },
+    editContact(contact) {
+        return axios.post(`${ROOT_URL}/update/${contact.id}`, contact)
+    },
+    createContact(contact) {
+        console.log("Contact CREATE", contact)
+        return axios.post(`${ROOT_URL}/contacts`, contact);
+    },
+    deleteContact(id) {
+        console.log("DELETE", id);
+        return axios.delete(`${ROOT_URL}/delete/${id}`);
+    }
 }

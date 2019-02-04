@@ -1,12 +1,19 @@
 <template>
     <div>
-        CONTACTS
+        {{contacts}}
     </div>
 </template>
 
 <script>
+import { contact_fields, contact_options } from '../data';
+
 export default {
-    name: "Contacts"
+    name: "Contacts",
+    computed: {
+        contacts() {
+            return this.$store.state.contacts.contacts;
+        }
+    }
 }
 </script>
 

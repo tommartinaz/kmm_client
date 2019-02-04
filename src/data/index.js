@@ -23,4 +23,21 @@ export const project_options = [
     { value: 'DIY', text: 'DIY' },
     { value: 'Social Media', text: 'Social Media' },
     { value: 'Testimonial', text: 'Testimonial' },
-]
+];
+
+export const contact_fields = [
+    { key: 'id', sortable: true },
+    { key: 'name', sortable: true },
+    { key: 'company', sortable: true },
+    { key: 'website', sortable: false },
+    { key: 'email', sortable: false },
+    { key: 'phone', sortable: false },
+    { key: 'client_status', sortable: true },
+    { key: 'message', sortable: false}
+];
+
+export const contact_options = [
+    { value: null, text: 'Select a category', disabled: true },
+    { value: 'Yes', text: 'Yes' },
+    { value: 'No', text: 'No'}
+];

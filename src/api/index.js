@@ -3,6 +3,7 @@ import axios from 'axios';
 const ROOT_URL = "http://localhost:8000";
 
 export default {
+    //PROJECTS
     fetchProjects() {
         return axios.get(`${ROOT_URL}/projects`);
     },
@@ -17,4 +18,6 @@ export default {
         console.log("DELETE", id);
         return axios.delete(`${ROOT_URL}/delete/${id}`);
     }
+    
+    //CONTACTS
 }

@@ -32,6 +32,6 @@ export default {
     },
     deleteContact(id) {
         console.log("DELETE", id);
-        return axios.delete(`${ROOT_URL}/delete/${id}`);
+        return axios.delete(`${ROOT_URL}/contact/delete/${id}`);
     }
 }

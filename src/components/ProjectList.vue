@@ -3,10 +3,7 @@
     <b-row no-gutters>
       <b-col cols="12" class="create-btn-row">
         <div>
-          <b-btn
-          v-b-modal.modalEdit
-          v-b-modal.modal-center
-          class="create-btn mt-2 px-2">
+          <b-btn v-b-modal.modalEdit v-b-modal.modal-center class="create-btn mt-2 px-2">
             Create New Project
           </b-btn>
         </div>
@@ -19,119 +16,65 @@
       </b-col>
     </b-row>
     <div>
-      <b-modal id="modalEdit"
-         ref="modal"
-         :title="form_data.id ? 'Edit Existing Project Details' : 'Enter New Project Details'"
-         @ok="handleSubmit"
-         @hidden="clearName">
+      <b-modal id="modalEdit" ref="modal" :title="form_data.id ? 'Edit Existing Project Details' : 'Enter New Project Details'"
+        @ok="handleSubmit" @hidden="clearName">
         <form @submit.stop.prevent="handleEdit">
-          <b-form-input
-            class="mb-3 project-id"
-            type="text"
-            disabled
-            v-model="form_data.id">
+          <b-form-input class="mb-3 project-id" type="text" disabled v-model="form_data.id">
           </b-form-input>
           <p>Client Name</p>
-          <b-form-input
-            class="mb-3"
-            type="text"
-            v-model="form_data.client_name">
+          <b-form-input class="mb-3" type="text" v-model="form_data.client_name">
           </b-form-input>
 
           <p>Company</p>
-          <b-form-input
-            class="mb-3"
-            type="text"
-            v-model="form_data.company">
+          <b-form-input class="mb-3" type="text" v-model="form_data.company">
           </b-form-input>
 
           <p>Project Name</p>
-          <b-form-input
-            class="mb-3"
-            type="text"
-            v-model="form_data.project_name">
+          <b-form-input class="mb-3" type="text" v-model="form_data.project_name">
           </b-form-input>
 
           <p>Date Published (Mon. YYYY)</p>
-          <b-form-input
-            class="mb-3"
-            type="text"
-            v-model="form_data.published">
+          <b-form-input class="mb-3" type="text" v-model="form_data.published">
           </b-form-input>
 
           <p>Runtime/Length (Ex. 3:45)</p>
-          <b-form-input
-            class="mb-3"
-            type="text"
-            v-model="form_data.length">
+          <b-form-input class="mb-3" type="text" v-model="form_data.length">
           </b-form-input>
 
           <p>Vimeo ID# (Ex. 222111333)</p>
-          <b-form-input
-            class="mb-3"
-            type="number"
-            v-model="form_data.vimeo_id">
+          <b-form-input class="mb-3" type="number" v-model="form_data.vimeo_id">
           </b-form-input>
 
           <p>Project Description</p>
-          <b-form-textarea
-            class="mb-3"
-            type="textarea"
-            v-model="form_data.description"
-            :rows="3"
-            :max-rows="6">
+          <b-form-textarea class="mb-3" type="textarea" v-model="form_data.description" :rows="3" :max-rows="6">
           </b-form-textarea>
 
           <p>Select a category</p>
-          <b-form-select
-            :options="options"
-            class="mb-3"
-            v-model="form_data.c2">
+          <b-form-select :options="options" class="mb-3" v-model="form_data.c2">
           </b-form-select>
 
           <p>Select a category</p>
-          <b-form-select
-            :options="options"
-            class="mb-3"
-            v-model="form_data.c3">
+          <b-form-select :options="options" class="mb-3" v-model="form_data.c3">
           </b-form-select>
         </form>
       </b-modal>
     </div>
 
-      <b-row no-gutters class="project-table-container mt-3">
-          <b-col cols="12">
-            <b-table
-                class="project-table"
-                responsive
-                stacked="lg"
-                small
-                hover
-                outlined
-                tdClass="text-center"
-                :items="projects"
-                :fields="fields"
-            >
-                <template slot="edit" slot-scope="row">
-                    <i class="fa fa-pencil-square-o"
-                    style="color:blue; display:flex; justify-content:center;"
-                    aria-hidden="true"
-                    v-b-modal.modalEdit
-                    v-b-modal.modal-center
-                    @click="loadEdit(row.index)"
-                    ></i>
-                </template>
+    <b-row no-gutters class="project-table-container mt-3">
+      <b-col cols="12">
+        <b-table class="project-table" responsive stacked="lg" small hover outlined tdClass="text-center" :items="projects"
+          :fields="fields">
+          <template slot="edit" slot-scope="row">
+            <i class="fa fa-pencil-square-o" style="color:blue; display:flex; justify-content:center;" aria-hidden="true"
+              v-b-modal.modalEdit v-b-modal.modal-center @click="loadEdit(row.index)"></i>
+          </template>
 
-                <template slot="delete" slot-scope="row" style="text-align:center;">
-                    <i class="fa fa-trash-o"
-                    style="color:red; display:flex; justify-content:center;"
-                    aria-hidden="true"
-                    @click="delProject(row.item.id)"
-                    ></i>
-                </template>
-            </b-table>
-          </b-col>
-      </b-row>
+          <template slot="delete" slot-scope="row" style="text-align:center;">
+            <i class="fa fa-trash-o" style="color:red; display:flex; justify-content:center;" aria-hidden="true" @click="delProject(row.item.id)"></i>
+          </template>
+        </b-table>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 

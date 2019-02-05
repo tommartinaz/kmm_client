@@ -32,7 +32,6 @@ export default {
   methods:{
     login() {
       axios.post('http://localhost:8000/letmein', {email: this.email, password:this.password}).then((res)=>{
-        console.log(res);
         localStorage.setItem("token", res.data.token);
         this.$router.push('/dashboard');
       }).catch(()=>{

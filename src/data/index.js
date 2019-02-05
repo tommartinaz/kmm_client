@@ -40,6 +40,6 @@ export const contact_fields = [
 
 export const contact_options = [
     { value: null, text: 'Select a category', disabled: true },
-    { value: 'Yes', text: 'Yes' },
-    { value: 'No', text: 'No'}
+    { value: 'Existing Client', text: 'Yes' },
+    { value: 'New Client', text: 'No'}
 ];

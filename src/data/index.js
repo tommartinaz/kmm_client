@@ -33,11 +33,13 @@ export const contact_fields = [
     { key: 'email', sortable: false },
     { key: 'phone', sortable: false },
     { key: 'client_status', sortable: true },
-    { key: 'message', sortable: false}
+    { key: 'message', sortable: false },
+    { key: 'edit', sortable: false },
+    { key: 'delete', sortable: false }
 ];
 
 export const contact_options = [
     { value: null, text: 'Select a category', disabled: true },
-    { value: 'Yes', text: 'Yes' },
-    { value: 'No', text: 'No'}
+    { value: 'Existing Client', text: 'Yes' },
+    { value: 'New Client', text: 'No'}
 ];

@@ -12,6 +12,10 @@ const actions = {
         const response = await api.createContact(contact);
         commit('setContacts', response.data);
     },
+    async editContact({ commit }, contact) {
+        const response = await api.editContact(contact);
+        commit('setContacts', response.data);
+    },
     async deleteContact({ commit}, id) {
         const response = await api.deleteContact(id);
         commit('deleteContact', response.data);

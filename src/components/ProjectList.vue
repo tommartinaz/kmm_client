@@ -111,6 +111,8 @@
                 tdClass="text-center"
                 :items="projects"
                 :fields="fields"
+                :sort-by="sortBy"
+                no-sort-reset
             >
                 <template slot="edit" slot-scope="row">
                     <i class="fa fa-pencil-square-o"
@@ -143,6 +145,7 @@ export default {
     data() {
         return {
             selected: null,
+            sortBy: "id",
             fields: project_fields,
             options: project_options,
             form_data: {
@@ -160,15 +163,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions([
-            'editProject', 'createProject', 'deleteProject'
-        ]),
         loadEdit(id) {
-            // this.edit_form_data = this.projects[id]
             this.form_data = this.projects[id];
         },
         delProject(id) {
-            this.deleteProject(id);
+            this.$store.dispatch('deleteProject', id);
         },
         clearName() {
             this.form_data = {
@@ -184,11 +183,10 @@ export default {
             }
         },
         handleSubmit() {
-            console.log("HANDLE SUBMIT", this.$refs);
             if(this.form_data.id) {
-              this.editProject(this.form_data);
+              this.$store.dispatch('editProject'. this.form_data);
             } else {
-              this.createProject(this.form_data);
+              this.$store.dispatch('createProject', this.form_data);
             }
             this.clearName();
             this.$refs.modal.hide();
@@ -199,9 +197,6 @@ export default {
             return this.$store.state.projects.projects;
         }
     },
-    // methods: {
-    //     ...mapActions()
-    // },
 }
 </script>
 

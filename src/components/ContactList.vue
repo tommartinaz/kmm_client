@@ -7,8 +7,11 @@
                         Create New Contact
                     </b-btn>
 
-                    <b-modal id="modalPrevent" ref="modal" title="Enter Contact Information" @ok="handleOk" @hidden="clearName">
+                    <b-modal id="modalPrevent" ref="modal" title="Enter Contact Information" @ok="handleSubmit" @hidden="clearName">
                         <form @submit.stop.prevent="handleSubmit">
+                            <b-form-input class="contact-id" v-model="form_data.id">
+                            </b-form-input>
+
                             <p>Name</p>
                             <b-form-input class="mb-3" type="text" v-model="form_data.name">
                             </b-form-input>
@@ -101,18 +104,20 @@
             }
         },
         methods: {
-            ...mapActions(['deleteContact']),
             loadEdit(id) {
                 this.form_data = this.contacts[id];
             },
-            handleOk() {
-                console.log("OK")
-            },
             handleSubmit() {
-                console.log("SUBMIT")
+                if(this.form_data.id) {
+                    this.$store.dispatch('editContact', this.form_data)
+                } else {
+                    this.$store.dispatch('createContact', this.form_data)
+                }
+                this.clearName();
+                this.$refs.modal.hide();
             },
             delContact(id) {
-                this.deleteContact(id);
+                this.$store.dispatch('deleteContact', id);
             },
             clearName() {
                 this.form_data = {
@@ -130,3 +135,91 @@
     }
 </script>
 
+<style scoped>
+*{
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#contact-list {
+  display: flex;
+  flex-direction: column;
+  height: 86vh;
+  margin: 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* column header */
+.contact-table-container >>> th:nth-child(1) {
+  text-align: center;
+}
+
+.contact-table-container >>> th:nth-child(6),
+.contact-table-container >>> th:nth-child(7) {
+  width: 130px;
+}
+
+.contact-table-container >>> th:nth-child(2),
+.contact-table-container >>> th:nth-child(3)  {
+  width: 170px;
+}
+
+/* column data */
+.contact-table-container >>> td:nth-of-type(1) {
+  text-align: center;
+}
+
+.contact-table-container >>> tr,
+.contact-table-container >>> th,
+.contact-table-container >>> td {
+  border: 1px solid grey;
+}
+
+.contact-table-container >>> th {
+  background-color: #555555;
+  color: white;
+}
+
+.contact-table {
+  margin: 10px 0 20px 0;
+}
+
+.create-btn-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-btn {
+  padding: 5px;
+  background-color: lightgreen;
+  color: #222222;
+  border-color: #888888;
+}
+.create-btn:hover {
+  padding: 5px;
+  background-color: green;
+  color: #dddddd;
+  border-color: #222222;
+}
+
+.edit-btn {
+  background-color: orange;
+  padding: 1px 0;
+  border-color: #aaaaaa;
+}
+
+.del-btn {
+  background-color: red;
+  padding: 1px 0;
+  border-color: #aaaaaa;
+}
+#contacttitle-project-list {
+  margin-bottom: 30px;
+}
+
+.contact-id {
+    display: none;
+}
+</style>

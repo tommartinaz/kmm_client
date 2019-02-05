@@ -24,7 +24,7 @@ export default {
         return axios.get(`${ROOT_URL}/contacts`);
     },
     editContact(contact) {
-        return axios.post(`${ROOT_URL}/update/${contact.id}`, contact)
+        return axios.post(`${ROOT_URL}/contact/update/${contact.id}`, contact)
     },
     createContact(contact) {
         console.log("Contact CREATE", contact)

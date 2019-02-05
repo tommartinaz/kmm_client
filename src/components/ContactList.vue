@@ -3,11 +3,21 @@
         <b-row no-gutters>
             <b-col cols="12" class="create-btn-row">
                 <div>
-                    <b-btn v-b-modal.modalPrevent v-b-modal.modal-center class="create-btn mt-2 px-2">
+                    <b-btn
+                        v-b-modal.modalContact
+                        v-b-modal.modal-center
+                        class="create-btn mt-2 px-2"
+                    >
                         Create New Contact
                     </b-btn>
 
-                    <b-modal id="modalPrevent" ref="modal" title="Enter Contact Information" @ok="handleSubmit" @hidden="clearName">
+                    <b-modal
+                        id="modalContact"
+                        ref="modal"
+                        :title="!form_data.id ? 'Enter Contact Information' : 'Update Contact Information'"
+                        @ok="handleSubmit"
+                        @hidden="clearName"
+                    >
                         <form @submit.stop.prevent="handleSubmit">
                             <b-form-input class="contact-id" v-model="form_data.id">
                             </b-form-input>
@@ -37,8 +47,13 @@
                             </b-form-select>
 
                             <p>Message</p>
-                            <b-form-textarea class="mb-3" type="textarea" v-model="form_data.message" :rows="3"
-                                :max-rows="6">
+                            <b-form-textarea
+                                class="mb-3"
+                                type="textarea"
+                                v-model="form_data.message"
+                                :rows="3"
+                                :max-rows="6"
+                            >
                             </b-form-textarea>
                         </form>
                     </b-modal>
@@ -52,20 +67,36 @@
         </b-row>
         <b-row no-gutters class="contact-table-container">
             <b-col cols="12">
-                <b-table class="contact-table" responsive stacked="lg" small hover outlined :items="contacts" :fields="fields">
+                <b-table
+                    class="contact-table"
+                    responsive
+                    stacked="lg"
+                    small
+                    hover
+                    outlined
+                    :items="contacts"
+                    :fields="fields"
+                    :sort-by="sortBy"
+                    no-sort-reset
+                >
                     <template slot="edit" slot-scope="row">
                         <i
                             class="fa fa-pencil-square-o"
                             style="color:blue; display: flex; justify-content: center;"
                             aria-hidden="true"
-                            v-b-modal.modalPrevent
+                            v-b-modal.modalContact
                             v-b-modal.modal-center
                             @click="loadEdit(row.index)"
                         ></i>
                     </template>
-          <template slot="delete" slot-scope="row" style="text-align:center;">
-            <i class="fa fa-trash-o" style="color:red; display:flex; justify-content:center;" aria-hidden="true" @click="delContact(row.item.id)"></i>
-          </template>
+                    <template slot="delete" slot-scope="row" style="text-align:center;">
+                        <i
+                            class="fa fa-trash-o"
+                            style="color:red; display:flex; justify-content:center;"
+                            aria-hidden="true"
+                            @click="delContact(row.item.id)"
+                        ></i>
+                    </template>
                 </b-table>
             </b-col>
         </b-row>
@@ -95,7 +126,8 @@
                     message: ""
                 },
                 fields: contact_fields,
-                options: contact_options
+                options: contact_options,
+                sortBy: "id"
             }
         },
         computed: {

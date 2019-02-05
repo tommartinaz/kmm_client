@@ -267,15 +267,13 @@ export default {
 
 .edit-btn {
   background-color: orange;
-  padding-top: 1px;
-  padding-botton: 1px;
+  padding-top: 1px 0;
   border-color: #aaaaaa;
 }
 
 .del-btn {
   background-color: red;
-  padding-top: 1px;
-  padding-botton: 1px;
+  padding-top: 1px 0;
   border-color: #aaaaaa;
 }
 #title-project-list {

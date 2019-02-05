@@ -76,9 +76,6 @@ export default {
   color: #cccccc;
 }
 
-.logout {
-
-}
 .logout:hover {
   color: #eb37cb;
 }

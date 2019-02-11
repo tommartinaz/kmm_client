@@ -1,4 +1,5 @@
 # mykmm-client
+* Note that this project requires the installation of kmm-server as well
 
 ## Project setup
 ```
@@ -24,7 +25,3 @@ yarn run test
 ```
 yarn run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# kmm_client

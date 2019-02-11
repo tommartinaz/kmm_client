@@ -10,16 +10,8 @@
 
 
 <script>
-import OnLoad from './OnLoad.vue'
-import ProjectList from './ProjectList.vue'
-import ContactList from './ContactList.vue'
 
 export default {
-  components: {
-    'onload': OnLoad,
-    'project-list': ProjectList,
-    'contact-list': ContactList
-  },
   name: 'ContentContainer',
 }
 </script>

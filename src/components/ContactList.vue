@@ -68,7 +68,6 @@
         <b-row no-gutters class="contact-table-container">
             <b-col cols="12">
                 <b-table
-                    class="contact-table"
                     responsive
                     stacked="lg"
                     small
@@ -86,7 +85,7 @@
                             aria-hidden="true"
                             v-b-modal.modalContact
                             v-b-modal.modal-center
-                            @click="loadEdit(row.index)"
+                            @click="loadEdit(row.item.id)"
                         ></i>
                     </template>
                     <template slot="delete" slot-scope="row" style="text-align:center;">
@@ -109,7 +108,7 @@
         contact_fields,
         contact_options
     } from '../data';
-    import { mapActions } from 'vuex';
+    import moment from 'moment';
 
     export default {
         name: "Contacts",
@@ -132,18 +131,44 @@
         },
         computed: {
             contacts() {
-                return this.$store.state.contacts.contacts;
+                const { contacts } = this.$store.state.contacts;
+                return contacts.map(contact => {
+                    return {
+                        ...contact,
+                        _rowVariant: contact.client_status === "New Client" && !contact.followUp_status 
+                                ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(7, 'days'))
+                                    ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(3, 'days'))
+                                        ? 'danger'
+                                        : 'warning'
+                                    : 'success'
+                                : null
+                    }
+                });
+            },
+            rowVariant(contact) {
+                const variant = contact.client_status === "New Client" && !contact.followUp_status 
+                                ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(7, 'days'))
+                                    ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(3, 'days'))
+                                        ? 'danger'
+                                        : 'warning'
+                                    : 'success'
+                                : null;
+                return variant;
             }
         },
         methods: {
             loadEdit(id) {
-                this.form_data = this.contacts[id];
+                this.form_data = this.contacts.find(contact => contact.id === id);
             },
             handleSubmit() {
-                if(this.form_data.id) {
-                    this.$store.dispatch('editContact', this.form_data)
+                const { id, name, company, website, email, phone, client_status, message } = this.form_data;
+                const contactToSubmit = {
+                    id, name, company, website, email, phone, client_status, message
+                };
+                if(id) {
+                    this.$store.dispatch('editContact', contactToSubmit);
                 } else {
-                    this.$store.dispatch('createContact', this.form_data)
+                    this.$store.dispatch('createContact', contactToSubmit);
                 }
                 this.clearName();
                 this.$refs.modal.hide();

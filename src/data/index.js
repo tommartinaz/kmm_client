@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const project_fields = [
     { key: 'id', sortable: true },
     { key: 'client_name', sortable: true },
@@ -33,6 +35,14 @@ export const contact_fields = [
     { key: 'email', sortable: false },
     { key: 'phone', sortable: false },
     { key: 'client_status', sortable: true },
+    { 
+        key: 'followUp_date',
+        sortable: true,
+        formatter: date => {
+            return moment(date) ? moment(date).format('MM/DD/YYYY') : null
+        },
+    },
+    { key: 'followUp_status', sortable: true },
     { key: 'message', sortable: false },
     { key: 'edit', sortable: false },
     { key: 'delete', sortable: false }

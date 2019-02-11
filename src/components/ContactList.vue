@@ -135,17 +135,25 @@
                 return contacts.map(contact => {
                     return {
                         ...contact,
-                        _cellVariants: {
-                            followUp_date: contact.client_status === "New Client" && !contact.followUp_status 
+                        _rowVariant: contact.client_status === "New Client" && !contact.followUp_status 
                                 ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(7, 'days'))
                                     ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(3, 'days'))
                                         ? 'danger'
                                         : 'warning'
                                     : 'success'
                                 : null
-                        }
                     }
                 });
+            },
+            rowVariant(contact) {
+                const variant = contact.client_status === "New Client" && !contact.followUp_status 
+                                ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(7, 'days'))
+                                    ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(3, 'days'))
+                                        ? 'danger'
+                                        : 'warning'
+                                    : 'success'
+                                : null;
+                return variant;
             }
         },
         methods: {
@@ -270,11 +278,5 @@
 
 .contact-id {
     display: none;
-}
-.followUp-warning {
-    background-color: red;
-}
-.followUp-success {
-    background-color: green
 }
 </style>

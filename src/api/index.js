@@ -11,11 +11,9 @@ export default {
         return axios.post(`${ROOT_URL}/update/${project.id}`, project)
     },
     createProject(project) {
-        console.log("PROJECT CREATE", project)
         return axios.post(`${ROOT_URL}/projects`, project);
     },
     deleteProject(id) {
-        console.log("DELETE", id);
         return axios.delete(`${ROOT_URL}/delete/${id}`);
     },
     
@@ -27,11 +25,9 @@ export default {
         return axios.post(`${ROOT_URL}/contact/update/${contact.id}`, contact)
     },
     createContact(contact) {
-        console.log("Contact CREATE", contact)
         return axios.post(`${ROOT_URL}/contacts`, contact);
     },
     deleteContact(id) {
-        console.log("DELETE", id);
         return axios.delete(`${ROOT_URL}/contact/delete/${id}`);
     }
 }

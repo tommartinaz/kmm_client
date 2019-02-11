@@ -15,12 +15,10 @@ const actions = {
     },
     async createProject({ commit }, project) {
         const response = await api.createProject(project);
-        console.log("RESPONSE CREATE", response);
         commit('setProjects', response.data);
     },
     async deleteProject({ commit }, id) {
         const response = await api.deleteProject(id);
-        console.log(response);
         commit('deleteProject', response.data);
     }
 };

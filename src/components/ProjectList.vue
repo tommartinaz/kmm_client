@@ -138,7 +138,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import { project_fields, project_options } from '../data';
 export default {
     name: "ProjectList",

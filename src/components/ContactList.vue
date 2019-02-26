@@ -46,6 +46,10 @@
                             <b-form-select :options="options" class="mb-3" v-model="form_data.client_status">
                             </b-form-select>
 
+                            <p v-if="form_data.id && form_data.client_status === 'New Client'">Follow-Up Status</p>
+                            <b-form-input class="mb-3" type="text" v-if="form_data.id && form_data.client_status === 'New Client'" v-model="form_data.followUp_status">
+                            </b-form-input>
+
                             <p>Message</p>
                             <b-form-textarea
                                 class="mb-3"
@@ -122,6 +126,7 @@
                     email: "",
                     phone: "",
                     client_status: null,
+                    followUp_status: '',
                     message: ""
                 },
                 fields: contact_fields,
@@ -135,7 +140,7 @@
                 return contacts.map(contact => {
                     return {
                         ...contact,
-                        _rowVariant: contact.client_status === "New Client" && !contact.followUp_status 
+                        _rowVariant: contact.client_status === "New Client" 
                                 ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(7, 'days'))
                                     ? moment(new Date()).isAfter(moment(contact.followUp_date).subtract(3, 'days'))
                                         ? 'danger'
@@ -161,9 +166,9 @@
                 this.form_data = this.contacts.find(contact => contact.id === id);
             },
             handleSubmit() {
-                const { id, name, company, website, email, phone, client_status, message } = this.form_data;
+                const { id, name, company, website, email, phone, client_status, followUp_status, message } = this.form_data;
                 const contactToSubmit = {
-                    id, name, company, website, email, phone, client_status, message
+                    id, name, company, website, email, phone, client_status, followUp_status, message
                 };
                 if(id) {
                     this.$store.dispatch('editContact', contactToSubmit);

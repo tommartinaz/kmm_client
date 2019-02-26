@@ -120,7 +120,7 @@
                     aria-hidden="true"
                     v-b-modal.modalEdit
                     v-b-modal.modal-center
-                    @click="loadEdit(row.index)"
+                    @click="loadEdit(row.item.id)"
                     ></i>
                 </template>
 
@@ -163,7 +163,8 @@ export default {
     },
     methods: {
         loadEdit(id) {
-            this.form_data = this.projects[id];
+          console.log(id);
+            this.form_data = this.projects.find(project => project.id === id);
         },
         delProject(id) {
             this.$store.dispatch('deleteProject', id);
@@ -183,7 +184,7 @@ export default {
         },
         handleSubmit() {
             if(this.form_data.id) {
-              this.$store.dispatch('editProject'. this.form_data);
+              this.$store.dispatch('editProject', this.form_data);
             } else {
               this.$store.dispatch('createProject', this.form_data);
             }

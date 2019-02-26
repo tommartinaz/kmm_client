@@ -19,4 +19,5 @@ export default {
         this.fetchContacts();
     }
 }
+
 </script>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = "ec2-23-21-244-254.compute-1.amazonaws.com:5432";
+const ROOT_URL = "postgres://dbgluabxzbbktx:8885ab04edbb2b51b51acf5cbfdfe035438c9f0f1b6ebf1a24b6d67b0d02d364@ec2-23-21-244-254.compute-1.amazonaws.com:5432/d54p9sba513289";
 
 export default {
     //PROJECTS

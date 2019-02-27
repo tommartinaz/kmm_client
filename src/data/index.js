@@ -2,7 +2,6 @@ import moment from "moment";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 export const project_fields = [
-    { key: 'id', sortable: true },
     { key: 'client_name', sortable: true },
     { key: 'company', sortable: true },
     { key: 'project_name', sortable: false },
@@ -26,7 +25,6 @@ export const project_options = [
 ];
 
 export const contact_fields = [
-    { key: 'id', sortable: true },
     { key: 'name', sortable: true },
     { key: 'company', sortable: true },
     { key: 'website', sortable: false },

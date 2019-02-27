@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = "http://localhost:8000";
+const ROOT_URL = "ec2-23-21-244-254.compute-1.amazonaws.com:5432";
 
 export default {
     //PROJECTS

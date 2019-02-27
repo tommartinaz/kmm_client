@@ -143,59 +143,58 @@ export default {
     name: "ProjectList",
     data() {
         return {
-            selected: null,
-            sortBy: "id",
-            fields: project_fields,
-            options: project_options,
-            form_data: {
-                id: "",
-                client_name:"",
-                company: "",
-                project_name:"",
-                date_published: "",
-                length:"",
-                vimeo_id:"",
-                description:"",
-                c2:null,
-                c3:null
-            },
+          selected: null,
+          sortBy: "id",
+          fields: project_fields,
+          options: project_options,
+          form_data: {
+              id: "",
+              client_name:"",
+              company: "",
+              project_name:"",
+              date_published: "",
+              length:"",
+              vimeo_id:"",
+              description:"",
+              c2:null,
+              c3:null
+          },
         }
     },
     methods: {
         loadEdit(id) {
-          console.log(id);
-            this.form_data = this.projects.find(project => project.id === id);
+          this.form_data = this.projects.find(project => project.id === id);
         },
         delProject(id) {
             this.$store.dispatch('deleteProject', id);
         },
         clearName() {
-            this.form_data = {
-                client_name: "",
-                company: "",
-                project_name: "",
-                date_published: "",
-                length: "",
-                vimeo_id: "",
-                description: "",
-                c2: "",
-                c3: "",
-            }
+          this.form_data = {
+              client_name: "",
+              company: "",
+              project_name: "",
+              date_published: "",
+              length: "",
+              vimeo_id: "",
+              description: "",
+              c2: "",
+              c3: "",
+          }
         },
         handleSubmit() {
-            if(this.form_data.id) {
-              this.$store.dispatch('editProject', this.form_data);
-            } else {
-              this.$store.dispatch('createProject', this.form_data);
-            }
-            this.clearName();
-            this.$refs.modal.hide();
+          if(this.form_data.id) {
+            this.$store.dispatch('editProject', this.form_data);
+          } else {
+            this.$store.dispatch('createProject', this.form_data);
+          }
+          this.clearName();
+          this.$refs.modal.hide();
         }
     },
     computed: {
-        projects() {
-            return this.$store.state.projects.projects;
-        }
+      projects() {
+          return this.$store.state.projects.projects;
+      }
     },
 }
 </script>

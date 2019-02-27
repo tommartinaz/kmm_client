@@ -31,7 +31,7 @@ export default {
   },
   methods:{
     login() {
-      axios.post('https://kmm-server.herokuapp.com', {email: this.email, password:this.password}).then((res)=>{
+      axios.post('https://kmm-server.herokuapp.com/letmein', {email: this.email, password:this.password}).then((res)=>{
         localStorage.setItem("token", res.data.token);
         this.$router.push('/dashboard');
       }).catch(()=>{

@@ -1,9 +1,14 @@
 import moment from "moment";
 
+const capitalize = name => name
+    .split(' ')
+    .map(el => el.charAt(0).toUpperCase() + el.substring(1))
+    .join(' ');
+
 export const project_fields = [
-    { key: 'client_name', sortable: true },
-    { key: 'company', sortable: true },
-    { key: 'project_name', sortable: false },
+    { key: 'client_name', sortable: true, formatter: name => capitalize(name) },
+    { key: 'company', sortable: true, formatter: name => capitalize(name) },
+    { key: 'project_name', sortable: false, formatter: name => capitalize(name) },
     { key: 'published', sortable: true },
     { key: 'length', sortable: false },
     { key: 'vimeo_id', sortable: false },
@@ -24,8 +29,12 @@ export const project_options = [
 ];
 
 export const contact_fields = [
-    { key: 'name', sortable: true },
-    { key: 'company', sortable: true },
+    { 
+        key: 'name',
+        sortable: true,
+        formatter: name => capitalize(name)
+    },
+    { key: 'company', sortable: true, formatter: name => capitalize(name) },
     { key: 'website', sortable: false },
     { key: 'email', sortable: false },
     { key: 'phone', sortable: false },
@@ -33,9 +42,7 @@ export const contact_fields = [
     { 
         key: 'followUp_date',
         sortable: true,
-        formatter: date => {
-            return moment(date) ? moment(date).format('MM/DD/YYYY') : null
-        },
+        formatter: date => moment(date) ? moment(date).format('MM/DD/YYYY') : null
     },
     { key: 'followUp_status', sortable: true },
     { key: 'message', sortable: false },

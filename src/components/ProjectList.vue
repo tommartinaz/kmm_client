@@ -144,7 +144,7 @@ export default {
     data() {
         return {
           selected: null,
-          sortBy: "id",
+          sortBy: "client_name",
           fields: project_fields,
           options: project_options,
           form_data: {

@@ -1,6 +1,10 @@
 import axios from 'axios';
 
+// PROD
 const ROOT_URL = "https://kmm-server.herokuapp.com";
+
+// DEV
+// const ROOT_URL = "http://localhost:8000";
 
 export default {
     //PROJECTS

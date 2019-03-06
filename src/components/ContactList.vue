@@ -131,7 +131,7 @@
                 },
                 fields: contact_fields,
                 options: contact_options,
-                sortBy: "id"
+                sortBy: "name"
             }
         },
         computed: {
